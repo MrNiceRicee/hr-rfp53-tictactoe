@@ -17,8 +17,7 @@ const createBoard = () => {
       let button = document.createElement('button');
       button.classList.add('btn', 'btn-outline', 'cell')
       button.id = x + ',' + y;
-      // button.innerText = currentBoard.getCell(x,y).visited;
-      button.innerText = x + ' , ' + y;
+      button.innerText = '';
       board.append(button);
     }
   }
@@ -27,9 +26,8 @@ const createBoard = () => {
   cellBtn.addEventListener('click', (event) => {
     let btnId = event.target.id.split(',');
     if (btnId.length === 2) {
-      console.log('yeet');
-      currentBoard.setCellVisit(btnId[0],btnId[1]);
-      event.target.innerText = currentBoard.getCell(btnId[0], btnId[1]).visited;
+      console.log(currentBoard.setCellVisit(btnId[0],btnId[1]));
+      event.target.innerText = currentBoard.getCell(btnId[0],btnId[1]).getCellTurn();
     }
   })
 }

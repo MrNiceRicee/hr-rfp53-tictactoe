@@ -1,14 +1,21 @@
 class Cell {
   constructor() {
     this.visited =  false;
+    this.turn = '';
   }
+
 
   isVisited() {
     return this.visited;
   }
 
-  visitCell() {
+  getCellTurn() {
+    return this.turn;
+  }
+
+  visitCell(byTurn) {
     this.visited = true;
+    this.turn = byTurn;
   }
 }
 
