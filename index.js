@@ -6,7 +6,7 @@ let currentBoard;
 let boardSize = 3;
 let players = {
   x: { name: null, score: 0 },
-  o: { name: null, score: 0 }
+  o: { name: null, score: 0 },
   lastwinner: {
     x: false,
     o: true
