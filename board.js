@@ -27,32 +27,45 @@ class Board {
 
     for(let bi = 0, bd = 2; bi < this.size && bd > -1; bi++, bd--) {
       // check horizontal
-      console.log(this.getCell(x,bi).getCellTurn())
-      console.log('\n',this.getBoardTurn())
       if (this.getCellVisited(x, bi) && this.getCell(x,bi).getCellTurn() === this.getBoardTurn()) {
         xchecker++;
         if (xchecker === 3) {
-          return 'horizontal';
+          // return 'horizontal';
+          return 'won';
         }
       }
       // check vertical
       if (this.getCellVisited(bi, y)  && this.getCell(bi,y).getCellTurn() === this.getBoardTurn()) {
         ychecker++;
         if (ychecker === 3) {
-          return 'vertical';
+          // return 'vertical';
+          return 'won';
         }
       }
       // check diagonal
       if (this.getCellVisited(bi, bi)  && this.getCell(bi,bi).getCellTurn() === this.getBoardTurn()) {
         xychecker++;
         if (xychecker === 3) {
-          return 'l-r';
+          // return 'l-r';
+          return 'won';
         }
       }
       if (this.getCellVisited(bi, bd)  && this.getCell(bi,bd).getCellTurn() === this.getBoardTurn()) {
         dxychecker++;
         if (dxychecker === 3) {
-          return 'r-l';
+          // return 'r-l';
+          return 'won';
+        }
+      }
+    }
+    let counter = 0;
+    for (let xx = 0; xx < this.size; xx++) {
+      for (let yy = 0; yy < this.size; yy++) {
+        if (this.getCell(xx,yy).isVisited()) {
+          counter++;
+          if (counter === 9) {
+            return 'tie';
+          }
         }
       }
     }
