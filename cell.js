@@ -1,6 +1,6 @@
 class Cell {
   constructor() {
-    visited: false;
+    this.visited =  false;
   }
 
   isVisited() {
@@ -8,7 +8,7 @@ class Cell {
   }
 
   visitCell() {
-    visited = true;
+    this.visited = true;
   }
 }
 
