@@ -10,7 +10,7 @@ let players = {
   lastwinner: {
     x: false,
     o: true
-  };
+  }
 };
 
 
@@ -66,6 +66,10 @@ const createBoard = () => {
       }
     }
   })
+
+  document.querySelector('#player1Score').innerText = ' ' + players.x.score;
+  document.querySelector('#player2Score').innerText = ' ' + players.o.score;
+
 }
 
 
