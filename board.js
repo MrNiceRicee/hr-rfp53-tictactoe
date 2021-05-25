@@ -1,8 +1,8 @@
 class Board {
-  constructor(size) {
+  constructor(size, turn = 'x') {
     this.size = size;
     this.board = [];
-    this.turn = 'x';
+    this.turn = turn;
     for(var x = 0; x < size; x++) {
       this.board.push([]);
       for(var y = 0; y < size; y++) {
@@ -58,6 +58,7 @@ class Board {
         }
       }
     }
+
     let counter = 0;
     for (let xx = 0; xx < this.size; xx++) {
       for (let yy = 0; yy < this.size; yy++) {

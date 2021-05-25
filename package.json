@@ -4,6 +4,7 @@
   "description": "simple tictactoe app",
   "main": "index.js",
   "scripts": {
+    "start": "live-server -watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -10,12 +10,19 @@ let players = {
   lastwinner: {
     x: false,
     o: true
-  }
+  },
+  tracker: false
 };
 
 
 const createBoard = () => {
-  currentBoard = new Board(boardSize);
+  if(players.lastwinner.x) {
+    currentBoard = new Board(boardSize, 'o');
+    players.tracker = false;
+  } else {
+    currentBoard = new Board(boardSize, 'x');
+    players.tracker = true;
+  }
 
   let app = document.querySelector('#app');
   app.innerHTML = '';
@@ -35,6 +42,13 @@ const createBoard = () => {
   const cellBtn = document.querySelector('.game-container');
   cellBtn.addEventListener('click', (event) => {
     let btnId = event.target.id.split(',');
+    players.tracker = !players.tracker;
+    let playerXname = players.x.name ? players.x.name : 'x';
+    let playerYname = players.o.name ? players.o.name : 'o';
+
+    let playerturn = document.querySelector('#playerTurn');
+    playerturn.innerText =  players.tracker ? playerXname : playerYname ;
+    // document.querySelector('#playerTurn').innerText = players.tracker ? playerXname : playerYname ;
     if (btnId.length === 2) {
       if (!currentBoard.setCellVisit(btnId[0], btnId[1])) {
         let turn = currentBoard.getCell(btnId[0], btnId[1]).getCellTurn();
@@ -46,11 +60,15 @@ const createBoard = () => {
           event.target.innerText = currentBoard.getCell(btnId[0], btnId[1]).getCellTurn();
         }
       } else if ((currentBoard.setCellVisit(btnId[0], btnId[1]) === 'won')) {
-        event.target.innerText = currentBoard.getCell(btnId[0], btnId[1]).getCellTurn();
+
+        event.target.innerText = currentBoard.getCell(btnId[0], btnId[1]).getCellTurn() === 'x' ? playerXname : playerYname;
         players[currentBoard.getCell(btnId[0], btnId[1]).getCellTurn()].score++;
+        players.lastwinner.x = false;
+        players.lastwinner.o = false;
+        players.lastwinner[currentBoard.getCell(btnId[0], btnId[1]).getCellTurn()] = true;
         console.log(players);
         setTimeout(() => {
-          let reply = confirm('Game done! ' + currentBoard.getCell(btnId[0], btnId[1]).getCellTurn().toUpperCase() + ' won! Play again?');
+          let reply = confirm('Game done! ' + event.target.innerText + ' won! Play again?');
           if (reply) {
             createBoard();
           }
@@ -66,10 +84,8 @@ const createBoard = () => {
       }
     }
   })
-
   document.querySelector('#player1Score').innerText = ' ' + players.x.score;
   document.querySelector('#player2Score').innerText = ' ' + players.o.score;
-
 }
 
 
@@ -109,8 +125,10 @@ document.querySelector('#playerNames').addEventListener('keydown', (event) => {
     }
   } else if (event.key === 'Enter' && !event.target.value) {
     if (event.target.id === 'player1') {
+      players.x.name = null;
       changeNames('x', true);
     } else if (event.target.id === 'player2') {
+      players.o.name = null;
       changeNames('o', true);
     }
   }
@@ -122,8 +140,6 @@ document.querySelector('#newgame').addEventListener('click', (event) => {
     createBoard();
   }
 });
-
-createBoard();
 
 
 
